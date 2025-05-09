@@ -1,27 +1,73 @@
-chatRoomCpp
-Project Description
-chatRoomCpp is a basic chat room application written in C++ with Boost.Asio for asynchronous network I/O and threading for multi-client handling. It features multiple clients being able to communicate with a server and share messages within a chat room.
+C++ Chat Room Application
+This is a basic chat room application written in C++ using Boost.Asio for asynchronous network I/O and multi-threading for handling multiple clients simultaneously. It allows multiple clients to connect to a central server and exchange messages in real time within a shared chat room.
 
-Main Features
-Asynchronous Communication: Utilizes Boost.Asio to perform non-blocking I/O, where the server can work with many clients at the same time.
-Multi-threading: Uses threading to have multiple client sessions in progress at the same time.
-Room Management: A minimal room abstraction used to handle connected clients.
-Message Handling: Packages message handling code for message encoding, decoding, and dispatching.
-Architecture
-The following are the core parts of the project:
+🚀 Features
+Asynchronous Communication:
+Utilizes Boost.Asio to perform non-blocking I/O, allowing the server to handle many client connections concurrently without blocking operations.
 
-Session: A representation of a client session, where it deals with communication with an individual client. It reads the incoming messages, dispatches the outgoing messages, and takes care of the client socket.
-Room: It is used to represent a chat room and is in charge of handling a collection of related clients. It adds and removes clients, as well as delivers messages to everyone in the room.
-Message: It is used to represent an exchanged message among clients. It encodes and decodes the message header and body.
-Critical Functionalities
-Async I/O
-The program employs Boost.Asio for asynchronous I/O, enabling the server to process multiple client connections without blocking. The async_read and async_write functions in the Session class are employed to read data asynchronously from and write data asynchronously to the client socket.
+Multi-threading:
+Each client session runs in a separate thread to ensure smooth concurrent communication with multiple clients.
 
-Threading
-The program employs threading to process multiple client connections concurrently. Each client session is executed in a distinct thread, enabling the server to process multiple clients concurrently.
+Room Management:
+Implements a simple room abstraction that manages all connected clients and facilitates message broadcasting.
 
-Session Management
-The Session class is responsible for a client's connection to the chat room. It coordinates the asynchronous reading and writing of messages, and prevents messages from reaching the wrong recipient.
+Message Handling:
+Encodes, decodes, and dispatches messages between clients efficiently using structured message handling logic.
 
-Room Management
-The Room class is responsible for managing the chat room. It maintains a list of all connected clients, and supports methods for adding and removing clients, and for sending messages to all members of the room.
+🧱 Architecture Overview
+1. Session
+Represents an individual client session. It handles:
+
+Reading incoming messages asynchronously.
+
+Sending outgoing messages asynchronously.
+
+Managing the client's socket connection.
+
+2. Room
+Acts as a chat room managing a collection of clients. It:
+
+Adds/removes clients.
+
+Delivers messages to all connected clients.
+
+3. Message
+Represents the message exchanged between clients. It:
+
+Encodes and decodes message headers and bodies.
+
+Prepares messages for safe transmission over the network.
+
+🔧 Key Functionalities
+✅ Asynchronous I/O
+Uses async_read and async_write from Boost.Asio to handle non-blocking message transfers.
+
+Ensures high scalability by not blocking on I/O operations.
+
+✅ Multi-threading
+Each session runs on a dedicated thread.
+
+Enables concurrent message handling across multiple clients.
+
+✅ Session Management
+The Session class:
+
+Manages individual client communication.
+
+Ensures messages are correctly routed.
+
+Prevents cross-client message interference.
+
+✅ Room Management
+The Room class:
+
+Maintains an active list of client sessions.
+
+Supports broadcasting messages to all members.
+
+Handles client join and leave operations.
+
+📦 Dependencies
+Boost C++ Libraries (specifically Boost.Asio)
+
+C++11 or higher
